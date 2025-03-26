@@ -8,18 +8,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
 import java.util.ArrayList;
 
 public class Controller {
 
-    private AnchorPane root;
+    private AnchorPane visualizationPane;
 
     void setRoot(AnchorPane root) {
-        this.root = root;
+        this.visualizationPane = (AnchorPane) root.lookup("#visualizationPane");
     }
 
-    final int N = 10;  // Default size for random generation
-    final int W = 10;
+    final int N = 15;  // Default size for random generation
+    final int W = 15;
     final int gap = 10;
     ArrayList<Rectangle> rects = new ArrayList<>();
 
@@ -29,42 +30,43 @@ public class Controller {
 
     @FXML
     private Button rndBtn;
-    
+
     @FXML
     private Button sortBtn;
-    
+
     @FXML
     private Button customArrayBtn;
-    
+
     @FXML
     private TextField customArrayField;
 
     private Timeline timeline;
-    
+
     private boolean customInputMode = false;
 
     @FXML
     void randomizer(ActionEvent event) {
-
         if (timeline != null) {
             timeline.stop();
         }
 
-        root.getChildren().removeAll(rects);
+        visualizationPane.getChildren().removeAll(rects);
         rects.clear();
+
+        // Generate random rectangles
         for (int i = 0; i < N; i++) {
             Rectangle rect = new Rectangle();
-            rect.setX(100 + i * (W + gap));
-            rect.setY(100);
             rect.setWidth(W);
-            rect.setHeight(Math.random() * 100);
+            rect.setHeight(Math.random() * 300);
             rect.setFill(Color.RED);
-            rect.setTranslateX(0);
             rects.add(rect);
         }
-        root.getChildren().addAll(rects);
+
+        // Center the rectangles in the AnchorPane
+        centerRectangles();
+        visualizationPane.getChildren().addAll(rects);
     }
-    
+
     @FXML
     void handleCustomArray(ActionEvent event) {
         if (!customInputMode) {
@@ -81,43 +83,42 @@ public class Controller {
             customArrayField.setVisible(false);
             rndBtn.setDisable(false);
             sortBtn.setDisable(false);
-            
+
             applyCustomValues();
         }
     }
-    
+
     private void applyCustomValues() {
         String input = customArrayField.getText().trim();
         if (input.isEmpty()) {
             return;
         }
-        
+
         try {
             // Parse comma-separated values
             String[] values = input.split(",");
-            
+
             if (timeline != null) {
                 timeline.stop();
             }
-            
-            root.getChildren().removeAll(rects);
+
+            visualizationPane.getChildren().removeAll(rects);
             rects.clear();
-            
-            for (int i = 0; i < values.length; i++) {
-                double height = Double.parseDouble(values[i].trim());
+
+            for (String value : values) {
+                double height = Double.parseDouble(value.trim());
                 Rectangle rect = new Rectangle();
-                rect.setX(100 + i * (W + gap));
-                rect.setY(100);
                 rect.setWidth(W);
-                rect.setHeight(height);
+                rect.setHeight(height*2);
                 rect.setFill(Color.RED);
-                rect.setTranslateX(0);
                 rects.add(rect);
             }
-            
-            root.getChildren().addAll(rects);
+
+            // Center the rectangles in the AnchorPane
+            centerRectangles();
+            visualizationPane.getChildren().addAll(rects);
             customArrayField.clear();
-            
+
         } catch (NumberFormatException e) {
             // Handle invalid input
             customArrayField.setText("Invalid input! Use comma-separated numbers");
@@ -134,19 +135,19 @@ public class Controller {
         if (timeline != null) {
             timeline.stop();
         }
-        
+
         // Exit if there are no rectangles to sort
         if (rects.isEmpty()) {
             return;
         }
-        
+
         state = 0;
         i = 0;
         j = 0;
 
         timeline = new Timeline(new KeyFrame(Duration.millis(200), e -> {
             int arraySize = rects.size();  // Use actual array size instead of N
-            
+
             switch (state) {
                 case 0: // Initialize
                     i = 0;
@@ -195,7 +196,7 @@ public class Controller {
                     }
                     state = 1;
                     break;
-                    
+
                 case 3: // Done
                     for (int k = 0; k < arraySize; k++) {
                         rects.get(k).setFill(Color.GREEN);
@@ -209,4 +210,14 @@ public class Controller {
         timeline.play();
     }
 
+    private void centerRectangles() {
+        double totalWidth = rects.size() * (W + gap) - gap; // Total width of all rectangles including gaps
+        double startX = (visualizationPane.getWidth() - totalWidth) / 2; // Calculate starting X position to center the array
+
+        for (int i = 0; i < rects.size(); i++) {
+            Rectangle rect = rects.get(i);
+            rect.setX(startX + i * (W + gap)); // Set X position for each rectangle
+            rect.setY(100); // Fixed Y position for alignment
+        }
+    }
 }

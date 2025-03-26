@@ -1,5 +1,5 @@
 #rndBtn,#sortBtn,#customArrayBtn{
-    -fx-background-color: #c610d7;
+    -fx-background-color: #158506;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-font-size: 16px;
@@ -8,4 +8,27 @@
     -fx-padding: 5px 10px;
     -fx-cursor: hand;
     
+}
+#rndBtn:hover,#sortBtn:hover,#customArrayBtn:hover{
+    -fx-background-color: #f8f8f8;
+    -fx-text-fill: #158506;
+    -fx-border-color: #158506;
+    -fx-border-width: 2px;
+    
+}
+#title{
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f4f8f9;
+    -fx-padding: 5px 20px;
+    -fx-background-color:#27548A;
+    -fx-background-radius: 50px;
+    
+
+
+}
+#container{
+   
+    -fx-padding: 20px;
+    -fx-border-radius: 5px;
 }

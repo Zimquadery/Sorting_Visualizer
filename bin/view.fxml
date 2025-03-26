@@ -4,18 +4,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@App.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@App.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" prefHeight="55.0" prefWidth="201.0" text="Sorting Visualizer" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Button fx:id="rndBtn" alignment="CENTER" layoutX="14.0" layoutY="54.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="35.0" prefWidth="110.0" text="Randomize" textAlignment="CENTER" />
-      <Button fx:id="sortBtn" layoutX="142.0" layoutY="54.0" mnemonicParsing="false" onAction="#sort" text="Sort" />
-      <Button fx:id="customArrayBtn" layoutX="208.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleCustomArray" text="Custom Array" />
-      <TextField fx:id="customArrayField" layoutX="348.0" layoutY="57.0" prefHeight="26.0" prefWidth="186.0" promptText="Enter comma-separated values" visible="false" />
+      <!-- Navbar (VBox for title and buttons) -->
+      <VBox spacing="10.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <!-- Title -->
+            <Label fx:id="title" text="Sorting Algorithm Visualizer" />
+
+            <!-- Button Row (HBox for buttons) -->
+            <HBox spacing="10.0">
+               <children>
+                  <Button fx:id="rndBtn" mnemonicParsing="false" onAction="#randomizer" prefHeight="35.0" prefWidth="140.0" text="Random Arry" />
+                  <Button fx:id="sortBtn" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="110.0" text="Sort" />
+                  <Button fx:id="customArrayBtn" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="35.0" prefWidth="130.0" text="Custom Array" />
+                  <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <!-- AnchorPane for array visualization -->
+      <AnchorPane fx:id="visualizationPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0" />
    </children>
 </AnchorPane>
