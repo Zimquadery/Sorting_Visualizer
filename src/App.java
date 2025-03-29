@@ -19,9 +19,10 @@ public class App extends Application {
         // Get the controller and set the root pane
         Controller controller = loader.getController();
         controller.setRoot(root);
-
+        
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Visualizer");
+        primaryStage.setTitle("Sorting Algorithm Visualiser");
+        
         primaryStage.show();
     }
 }
