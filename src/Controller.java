@@ -17,6 +17,15 @@ public class Controller {
 
     void setRoot(AnchorPane root) {
         this.visualizationPane = (AnchorPane) root.lookup("#visualizationPane");
+        
+        // Add listener to reposition rectangles when the pane size changes
+        visualizationPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            if (!rects.isEmpty()) {
+                centerRectangles();
+            }
+        });
+        
+        randomizer(new ActionEvent()); // Initialize with random rectangles
     }
 
     final int N = 15;  // Default size for random generation
@@ -57,7 +66,7 @@ public class Controller {
         for (int i = 0; i < N; i++) {
             Rectangle rect = new Rectangle();
             rect.setWidth(W);
-            rect.setHeight(Math.random() * 300);
+            rect.setHeight(Math.random() * 100);
             rect.setFill(Color.RED);
             rects.add(rect);
         }
@@ -211,8 +220,14 @@ public class Controller {
     }
 
     private void centerRectangles() {
+        double paneWidth = visualizationPane.getWidth();
+        if (paneWidth == 0) {
+            // If the pane width is not yet determined, use the parent container's width
+            paneWidth = visualizationPane.getParent().getBoundsInLocal().getWidth();
+        }
+        
         double totalWidth = rects.size() * (W + gap) - gap; // Total width of all rectangles including gaps
-        double startX = (visualizationPane.getWidth() - totalWidth) / 2; // Calculate starting X position to center the array
+        double startX = Math.max(0, (paneWidth - totalWidth) / 2); // Calculate starting X position to center the array
 
         for (int i = 0; i < rects.size(); i++) {
             Rectangle rect = rects.get(i);
