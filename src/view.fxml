@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@App.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="380.0" prefHeight="600.0" prefWidth="800.0" stylesheets="@App.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <!-- Navbar (VBox for title and buttons) -->
-      <VBox spacing="10.0" style="-fx-padding: 10;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="80.0" layoutY="50.4" prefWidth="700.0" spacing="10.0" style="-fx-padding: 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
          <children>
             <!-- Title -->
-            <Label fx:id="title" text="Sorting Algorithm Visualizer" />
+            <Label fx:id="title" minWidth="380.0" text="Sorting Algorithm Visualizer" />
 
             <!-- Button Row (HBox for buttons) -->
-            <HBox spacing="10.0">
+            <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
-                  <Button fx:id="rndBtn" mnemonicParsing="false" onAction="#randomizer" prefHeight="35.0" prefWidth="140.0" text="Random Arry" />
-                  <Button fx:id="sortBtn" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="110.0" text="Sort" />
-                  <Button fx:id="customArrayBtn" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="35.0" prefWidth="130.0" text="Custom Array" />
+                  <Button fx:id="rndBtn" minWidth="120.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="35.0" prefWidth="140.0" text="Random Arry" />
+                  <Button fx:id="sortBtn" minWidth="120.0" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="140.0" text="Sort" />
+                  <Button fx:id="customArrayBtn" minWidth="120.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="35.0" prefWidth="140.0" text="Custom Array" />
                   <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false" />
                </children>
             </HBox>
+            <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="26.0" prefWidth="275.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ChoiceBox>
          </children>
       </VBox>
 
       <!-- AnchorPane for array visualization -->
-      <AnchorPane fx:id="visualizationPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0" />
+      <AnchorPane fx:id="visualizationPane" layoutX="60.0" layoutY="200.0" minWidth="500.0" prefHeight="422.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="180.0" />
    </children>
 </AnchorPane>
