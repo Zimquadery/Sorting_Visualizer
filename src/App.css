@@ -7,13 +7,15 @@
     -fx-text-fill:white;
     -fx-padding: 5px 10px;
     -fx-cursor: hand;
-    
+    -fx-border-width: 2px;
+    -fx-border-style: solid ;
+    -fx-border-color: #158506;
 }
 #rndBtn:hover,#sortBtn:hover,#customArrayBtn:hover{
     -fx-background-color: #f8f8f8;
     -fx-text-fill: #158506;
     -fx-border-color: #158506;
-    -fx-border-width: 2px;
+    /* -fx-border-width: 2px; */
     
 }
 #title{
@@ -24,10 +26,23 @@
     -fx-background-color:#27548A;
     /* -fx-background-radius: 50px; */
     
-
-
 }
 #container{
     -fx-padding: 20px;
     -fx-border-radius: 5px;
+}
+#Algorithm{
+    -fx-background-color: #BDDDE4;
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+#customArrayField{
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+    -fx-border-width: 2px;
 }

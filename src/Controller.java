@@ -95,7 +95,7 @@ public class Controller {
         for (int i = 0; i < N; i++) {
             Rectangle rect = new Rectangle();
             rect.setWidth(W);
-            rect.setHeight(Math.random() * 100);
+            rect.setHeight(Math.random() * 250);
             rect.setFill(Color.RED);
             rects.add(rect);
         }
@@ -147,7 +147,7 @@ public class Controller {
                 double height = Double.parseDouble(value.trim());
                 Rectangle rect = new Rectangle();
                 rect.setWidth(W);
-                rect.setHeight(height * 2);
+                rect.setHeight(height);
                 rect.setFill(Color.RED);
                 rects.add(rect);
             }

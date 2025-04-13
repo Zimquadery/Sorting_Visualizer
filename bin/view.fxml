@@ -20,13 +20,13 @@
             <!-- Button Row (HBox for buttons) -->
             <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
-                  <Button fx:id="rndBtn" minWidth="120.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="35.0" prefWidth="140.0" text="Random Arry" />
+                  <Button fx:id="rndBtn" minWidth="140.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="35.0" prefWidth="140.0" text="Random Array" />
                   <Button fx:id="sortBtn" minWidth="120.0" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="140.0" text="Sort" />
                   <Button fx:id="customArrayBtn" minWidth="120.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="35.0" prefWidth="140.0" text="Custom Array" />
                   <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false" />
                </children>
             </HBox>
-            <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="26.0" prefWidth="275.0">
+            <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="34.0" prefWidth="272.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
