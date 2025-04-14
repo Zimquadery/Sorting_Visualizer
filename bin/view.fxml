@@ -35,10 +35,10 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ChoiceBox>
-                  <Label text="Animation Speed:" />
-                  <Label text="Slow" />
+                  <Label styleClass="speedLabel" text="Animation Speed:" />
+                  <Label styleClass="speedLabel" text="Slow" />
                   <Slider fx:id="speedSlider" blockIncrement="100.0" max="1000.0" min="100.0" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" value="200.0" />
-                  <Label text="Fast" />
+                  <Label styleClass="speedLabel" text="Fast" />
                </children>
             </HBox>
          </children>

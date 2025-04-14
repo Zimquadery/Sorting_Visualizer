@@ -421,6 +421,15 @@ public class Controller {
                     i = 1; // Start with second element
                     j = i;
                     state = 1;
+                    
+                    // Reset all rectangle colors
+                    for (int k = 0; k < arraySize; k++) {
+                        if (k < 1) {
+                            rects.get(k).setFill(Color.GREEN); // First element is already sorted
+                        } else {
+                            rects.get(k).setFill(Color.RED); // Unsorted portion
+                        }
+                    }
                     break;
 
                 case 1: // Process element
@@ -429,47 +438,64 @@ public class Controller {
                         break;
                     }
 
-                    // Reset colors
+                    // Reset colors to show sorted vs unsorted portions
                     for (int k = 0; k < arraySize; k++) {
                         if (k < i) {
-                            rects.get(k).setFill(Color.GREEN); // Already sorted
-                        } else {
-                            rects.get(k).setFill(Color.RED);
+                            rects.get(k).setFill(Color.GREEN); // Already sorted portion
+                        } else if (k > i) {
+                            rects.get(k).setFill(Color.RED); // Unsorted portion
                         }
                     }
 
-                    // Current element to insert
-                    rects.get(j).setFill(Color.BLUE);
-
-                    // Check if element needs to be moved
-                    if (j > 0 && rects.get(j - 1).getHeight() > rects.get(j).getHeight()) {
-                        state = 2; // Need to swap
-                    } else {
-                        i++; // Move to next element
-                        j = i;
-                        if (i >= arraySize) {
-                            state = 3; // Done
-                        }
-                    }
+                    // Current key element we're trying to insert
+                    rects.get(i).setFill(Color.BLUE);
+                    
+                    // Set j to current element index to start insertion process
+                    j = i;
+                    state = 2; // Move to comparison/swap phase
                     break;
 
-                case 2: // Swap
-                    // Swap heights
-                    double tempHeight = rects.get(j).getHeight();
-                    rects.get(j).setHeight(rects.get(j - 1).getHeight());
-                    rects.get(j - 1).setHeight(tempHeight);
-
-                    // Move left
-                    j--;
-
-                    // If reached beginning or correct position
-                    if (j == 0 || rects.get(j - 1).getHeight() <= rects.get(j).getHeight()) {
-                        i++; // Move to next element
-                        j = i;
+                case 2: // Compare and swap if needed
+                    // First, reset any other comparison colors
+                    for (int k = 0; k < i; k++) {
+                        if (k != j && k != j-1) {
+                            rects.get(k).setFill(Color.GREEN);
+                        }
+                    }
+                    
+                    // Highlight the current element being inserted
+                    rects.get(j).setFill(Color.BLUE);
+                    
+                    // Highlight the element we're comparing with
+                    if (j > 0) {
+                        rects.get(j-1).setFill(Color.ORCHID);
+                    }
+                    
+                    // Check if element needs to be moved
+                    if (j > 0 && rects.get(j - 1).getHeight() > rects.get(j).getHeight()) {
+                        // Swap heights
+                        double tempHeight = rects.get(j).getHeight();
+                        rects.get(j).setHeight(rects.get(j - 1).getHeight());
+                        rects.get(j - 1).setHeight(tempHeight);
+                        
+                        // Move left and continue comparing
+                        j--;
+                        
+                        // Stay in state 2 to continue insertion process
+                    } else {
+                        // Found correct position
+                        // Mark all elements in sorted portion as green
+                        for (int k = 0; k <= i; k++) {
+                            rects.get(k).setFill(Color.GREEN);
+                        }
+                        
+                        // Move to next element in unsorted portion
+                        i++;
+                        state = 1;
+                        
+                        // Check if we're done
                         if (i >= arraySize) {
-                            state = 3; // Done
-                        } else {
-                            state = 1;
+                            state = 3;
                         }
                     }
                     break;

@@ -46,3 +46,30 @@
     -fx-cursor: hand;
     -fx-border-width: 2px;
 }
+#customArrayField{
+    -fx-border-color: #158506;
+    -fx-background-color: #f8f8f8;
+    -fx-text-fill: #158506;
+}
+
+#speedSlider {
+    -fx-cursor: hand;
+}
+
+#speedSlider .track {
+    -fx-background-color: #BDDDE4;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#speedSlider .thumb {
+    -fx-background-color: #158506;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+.speedLabel {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27548A;
+}
