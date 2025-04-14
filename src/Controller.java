@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -19,8 +20,14 @@ public class Controller {
 
     @FXML
     private ChoiceBox<String> Algorithm;
+    
+    @FXML
+    private Slider speedSlider;
 
     private String currentAlgorithm = "Bubble Sort";
+    
+    // Timeline duration in milliseconds
+    private int timelineDuration = 200;
 
     void setRoot(AnchorPane root) {
         this.visualizationPane = (AnchorPane) root.lookup("#visualizationPane");
@@ -34,6 +41,9 @@ public class Controller {
 
         // Initialize the algorithm choice box
         initAlgorithmChoiceBox();
+        
+        // Initialize the speed slider
+        initSpeedSlider();
 
         randomizer(new ActionEvent()); // Initialize with random rectangles
     }
@@ -55,6 +65,52 @@ public class Controller {
                 currentAlgorithm = newVal;
             }
         });
+    }
+
+    private void initSpeedSlider() {
+        // Set initial value
+        speedSlider.setValue(timelineDuration);
+        
+        // Add listener to update animation speed in real-time
+        speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            // Invert the slider value so higher value = faster animation (lower duration)
+            timelineDuration = (int)(1100 - newVal.doubleValue());
+            
+            // Update timeline if it's running
+            if (timeline != null && timeline.getStatus() == Timeline.Status.RUNNING) {
+                updateTimelineSpeed();
+            }
+        });
+    }
+    
+    private void updateTimelineSpeed() {
+        if (timeline == null) return;
+        
+        // Store the current status
+        Timeline.Status status = timeline.getStatus();
+        
+        // Stop the current timeline
+        timeline.stop();
+        
+        // Restart with new duration based on current algorithm
+        switch (currentAlgorithm) {
+            case "Bubble Sort":
+                bubbleSort();
+                break;
+            case "Selection Sort":
+                selectionSort();
+                break;
+            case "Insertion Sort":
+                insertionSort();
+                break;
+            default:
+                bubbleSort();
+        }
+        
+        // Only play if it was playing before
+        if (status == Timeline.Status.RUNNING) {
+            timeline.play();
+        }
     }
 
     final int N = 15;  // Default size for random generation
@@ -200,7 +256,7 @@ public class Controller {
     }
 
     private void bubbleSort() {
-        timeline = new Timeline(new KeyFrame(Duration.millis(200), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
             int arraySize = rects.size();  // Use actual array size instead of N
 
             switch (state) {
@@ -266,7 +322,7 @@ public class Controller {
     }
 
     private void selectionSort() {
-        timeline = new Timeline(new KeyFrame(Duration.millis(200), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
             int arraySize = rects.size();
 
             switch (state) {
@@ -357,7 +413,7 @@ public class Controller {
     }
 
     private void insertionSort() {
-        timeline = new Timeline(new KeyFrame(Duration.millis(200), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
             int arraySize = rects.size();
 
             switch (state) {
