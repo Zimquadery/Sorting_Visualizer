@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -115,8 +116,9 @@ public class Controller {
 
     final int N = 15;  // Default size for random generation
     final int W = 15;
-    final int gap = 10;
+    final int gap = 15;
     ArrayList<Rectangle> rects = new ArrayList<>();
+    ArrayList<Text> labels = new ArrayList<>();
 
     private byte state = 0; // 0=init, 1=iterating, 2=swapping, 3=done
     private int i = 0;
@@ -145,7 +147,9 @@ public class Controller {
         }
 
         visualizationPane.getChildren().removeAll(rects);
+        visualizationPane.getChildren().removeAll(labels);
         rects.clear();
+        labels.clear();
 
         // Generate random rectangles
         for (int i = 0; i < N; i++) {
@@ -154,11 +158,16 @@ public class Controller {
             rect.setHeight(Math.random() * 250);
             rect.setFill(Color.RED);
             rects.add(rect);
+
+            Text label = new Text(String.valueOf((int) rect.getHeight()));
+            label.getStyleClass().add("bar-label");
+            labels.add(label);
         }
 
         // Center the rectangles in the AnchorPane
         centerRectangles();
         visualizationPane.getChildren().addAll(rects);
+        visualizationPane.getChildren().addAll(labels);
     }
 
     @FXML
@@ -197,7 +206,9 @@ public class Controller {
             }
 
             visualizationPane.getChildren().removeAll(rects);
+            visualizationPane.getChildren().removeAll(labels);
             rects.clear();
+            labels.clear();
 
             for (String value : values) {
                 double height = Double.parseDouble(value.trim());
@@ -206,11 +217,16 @@ public class Controller {
                 rect.setHeight(height);
                 rect.setFill(Color.RED);
                 rects.add(rect);
+                
+                Text label = new Text(String.valueOf((int) height));
+                label.getStyleClass().add("bar-label");
+                labels.add(label);
             }
 
             // Center the rectangles in the AnchorPane
             centerRectangles();
             visualizationPane.getChildren().addAll(rects);
+            visualizationPane.getChildren().addAll(labels);
             customArrayField.clear();
 
         } catch (NumberFormatException e) {
@@ -298,6 +314,9 @@ public class Controller {
                     rects.get(j).setHeight(rects.get(j + 1).getHeight());
                     rects.get(j + 1).setHeight(tempHeight);
 
+                    // Update labels
+                    updateLabelPositions(j, j + 1);
+
                     // Move to next comparison
                     j++;
                     if (j >= arraySize - i - 1) {
@@ -378,6 +397,9 @@ public class Controller {
                     double tempHeight = rects.get(i).getHeight();
                     rects.get(i).setHeight(rects.get(j).getHeight());
                     rects.get(j).setHeight(tempHeight);
+
+                    // Update labels
+                    updateLabelPositions(i, j);
 
                     // Swap back indices
                     int temp = i;
@@ -478,6 +500,9 @@ public class Controller {
                         rects.get(j).setHeight(rects.get(j - 1).getHeight());
                         rects.get(j - 1).setHeight(tempHeight);
                         
+                        // Update labels
+                        updateLabelPositions(j, j - 1);
+                        
                         // Move left and continue comparing
                         j--;
                         
@@ -527,6 +552,31 @@ public class Controller {
             Rectangle rect = rects.get(i);
             rect.setX(startX + i * (W + gap)); // Set X position for each rectangle
             rect.setY(50); // Fixed Y position for alignment
+
+            // Position the text label at the top of the rectangle
+            Text label = labels.get(i);
+            label.setText(String.valueOf((int)rect.getHeight()));
+            label.setX(rect.getX() + W / 2 - label.getBoundsInLocal().getWidth() / 2);
+            label.setY(rect.getY() - 5); // Position above the bar
+        }
+    }
+    
+    /**
+     * Updates the position of labels for specific rectangles after height swap
+     * @param indices the indices of rectangles that had their heights swapped
+     */
+    private void updateLabelPositions(int... indices) {
+        for (int idx : indices) {
+            if (idx < 0 || idx >= rects.size()) continue; // Skip invalid indices
+            
+            Rectangle rect = rects.get(idx);
+            Text label = labels.get(idx);
+            
+            // Update label text and position
+            label.setText(String.valueOf((int)rect.getHeight()));
+            // Recalculate X position to center the label over its rectangle
+            label.setX(rect.getX() + W / 2 - label.getBoundsInLocal().getWidth() / 2);
+            label.setY(rect.getY() - 5); // Position above the bar
         }
     }
 }
