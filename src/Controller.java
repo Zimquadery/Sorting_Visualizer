@@ -54,7 +54,9 @@ public class Controller {
         Algorithm.setItems(FXCollections.observableArrayList(
             "Bubble Sort",
             "Selection Sort",
-            "Insertion Sort"
+            "Insertion Sort",
+            "Merge Sort",
+            "Quick Sort"
         ));
 
         // Set default value
@@ -104,6 +106,12 @@ public class Controller {
             case "Insertion Sort":
                 insertionSort();
                 break;
+            case "Merge Sort":
+                mergeSort();
+                break;
+            case "Quick Sort":
+                quickSort();
+                break;
             default:
                 bubbleSort();
         }
@@ -123,6 +131,7 @@ public class Controller {
     private byte state = 0; // 0=init, 1=iterating, 2=swapping, 3=done
     private int i = 0;
     private int j = 0;
+    private int k = 0;
 
     @FXML
     private Button rndBtn;
@@ -266,6 +275,12 @@ public class Controller {
             case "Insertion Sort":
                 insertionSort();
                 break;
+            case "Merge Sort":
+                mergeSort();
+                break;
+            case "Quick Sort":
+                quickSort();
+                break;
             default:
                 bubbleSort(); // Default to bubble sort
         }
@@ -309,13 +324,8 @@ public class Controller {
                     break;
 
                 case 2: // Swap
-                    // Swap heights
-                    double tempHeight = rects.get(j).getHeight();
-                    rects.get(j).setHeight(rects.get(j + 1).getHeight());
-                    rects.get(j + 1).setHeight(tempHeight);
-
-                    // Update labels
-                    updateLabelPositions(j, j + 1);
+                    // Swap heights using the new swap method
+                    swap(j, j + 1);
 
                     // Move to next comparison
                     j++;
@@ -393,13 +403,8 @@ public class Controller {
                     break;
 
                 case 2: // Swap
-                    // Swap heights
-                    double tempHeight = rects.get(i).getHeight();
-                    rects.get(i).setHeight(rects.get(j).getHeight());
-                    rects.get(j).setHeight(tempHeight);
-
-                    // Update labels
-                    updateLabelPositions(i, j);
+                    // Swap heights using the new swap method
+                    swap(i, j);
 
                     // Swap back indices
                     int temp = i;
@@ -495,13 +500,8 @@ public class Controller {
                     
                     // Check if element needs to be moved
                     if (j > 0 && rects.get(j - 1).getHeight() > rects.get(j).getHeight()) {
-                        // Swap heights
-                        double tempHeight = rects.get(j).getHeight();
-                        rects.get(j).setHeight(rects.get(j - 1).getHeight());
-                        rects.get(j - 1).setHeight(tempHeight);
-                        
-                        // Update labels
-                        updateLabelPositions(j, j - 1);
+                        // Swap heights using the new swap method
+                        swap(j, j - 1);
                         
                         // Move left and continue comparing
                         j--;
@@ -536,6 +536,26 @@ public class Controller {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    /**
+     * Swaps the heights of two rectangles and updates their labels.
+     * @param index1 The index of the first rectangle.
+     * @param index2 The index of the second rectangle.
+     */
+    private void swap(int index1, int index2) {
+        if (index1 < 0 || index1 >= rects.size() || index2 < 0 || index2 >= rects.size()) {
+            return; // Invalid indices
+        }
+        
+        Rectangle rect1 = rects.get(index1);
+        Rectangle rect2 = rects.get(index2);
+        
+        double tempHeight = rect1.getHeight();
+        rect1.setHeight(rect2.getHeight());
+        rect2.setHeight(tempHeight);
+        
+        updateLabelPositions(index1, index2);
     }
 
     private void centerRectangles() {
@@ -578,5 +598,364 @@ public class Controller {
             label.setX(rect.getX() + W / 2 - label.getBoundsInLocal().getWidth() / 2);
             label.setY(rect.getY() - 5); // Position above the bar
         }
+    }
+
+    // Variables for merge sort visualization
+    private int[] mergeSortArray;
+    private int[] tempArray;
+    private int currentSize;    // Current size of subarrays being merged
+    private int leftStart;      // Current left starting position
+    private int mergeState;     // 0=init, 1=size loop, 2=left loop, 3=merge, 4=done
+    private int rightStart;     // Current right starting position 
+    private int mergeIndex;     // Current merge index
+    private int leftIndex;      // Current left index
+    private int rightIndex;     // Current right index
+    private int maxSize;        // Maximum merge size
+    
+    private void mergeSort() {
+        int arraySize = rects.size();
+        
+        // No need to sort if array has 1 or fewer elements
+        if (arraySize <= 1) {
+            if (arraySize == 1) {
+                rects.get(0).setFill(Color.GREEN);
+            }
+            return;
+        }
+        
+        // Initialize arrays and variables
+        mergeSortArray = new int[arraySize];
+        tempArray = new int[arraySize];
+        
+        // Copy rectangle heights to array
+        for (int i = 0; i < arraySize; i++) {
+            mergeSortArray[i] = (int)rects.get(i).getHeight();
+            rects.get(i).setFill(Color.RED);
+        }
+        
+        // Initialize the merge sort state variables
+        mergeState = 0;
+        currentSize = 1;
+        leftStart = 0;
+        maxSize = arraySize;
+        
+        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
+            switch (mergeState) {
+                case 0: // Initialize a new size for merging
+                    if (currentSize >= maxSize) {
+                        // We're done with the entire sort
+                        mergeState = 4;
+                        break;
+                    }
+                    
+                    // Highlight the current merge size we're working with
+                    System.out.println("Merging subarrays of size " + currentSize);
+                    
+                    // Start with first subarray
+                    leftStart = 0;
+                    mergeState = 1;
+                    break;
+                    
+                case 1: // Start merging for a specific left position
+                    if (leftStart >= maxSize - 1) {
+                        // Finished all merges for current size, double the size
+                        currentSize = currentSize * 2;
+                        mergeState = 0;
+                        break;
+                    }
+                    
+                    // Calculate boundaries for this merge operation
+                    rightStart = Math.min(leftStart + currentSize, maxSize);
+                    int end = Math.min(leftStart + 2 * currentSize - 1, maxSize - 1);
+                    
+                    // Initialize indices for merging
+                    leftIndex = leftStart;
+                    rightIndex = rightStart;
+                    mergeIndex = leftStart;
+                    
+                    // Highlight the subarrays being merged
+                    for (int i = 0; i < maxSize; i++) {
+                        if (i >= leftStart && i < rightStart) {
+                            rects.get(i).setFill(Color.BLUE); // Left subarray
+                        } else if (i >= rightStart && i <= end) {
+                            rects.get(i).setFill(Color.ORCHID); // Right subarray
+                        } else {
+                            // Keep existing colors for other areas
+                            if (rects.get(i).getFill() != Color.GREEN) {
+                                rects.get(i).setFill(Color.RED);
+                            }
+                        }
+                    }
+                    
+                    // Copy data to temporary array for merging
+                    for (int i = leftStart; i <= end; i++) {
+                        tempArray[i] = mergeSortArray[i];
+                    }
+                    
+                    mergeState = 2;
+                    break;
+                    
+                case 2: // Perform one step of the merge
+                    int rightEnd = Math.min(leftStart + 2 * currentSize - 1, maxSize - 1);
+                    
+                    // If we still have elements to merge
+                    if (mergeIndex <= rightEnd) {
+                        // Choose smallest element from either left or right subarray
+                        if (leftIndex < rightStart && 
+                           (rightIndex > rightEnd || tempArray[leftIndex] <= tempArray[rightIndex])) {
+                            // Take from left subarray
+                            mergeSortArray[mergeIndex] = tempArray[leftIndex];
+                            
+                            // Visual highlighting
+                            rects.get(leftIndex).setFill(Color.YELLOW);
+                            rects.get(mergeIndex).setHeight(mergeSortArray[mergeIndex]);
+                            updateLabelPositions(mergeIndex);
+                            
+                            leftIndex++;
+                        } else {
+                            // Take from right subarray
+                            mergeSortArray[mergeIndex] = tempArray[rightIndex];
+                            
+                            // Visual highlighting
+                            if (rightIndex <= rightEnd) {
+                                rects.get(rightIndex).setFill(Color.YELLOW);
+                            }
+                            rects.get(mergeIndex).setHeight(mergeSortArray[mergeIndex]);
+                            updateLabelPositions(mergeIndex);
+                            
+                            rightIndex++;
+                        }
+                        
+                        // Mark sorted element
+                        rects.get(mergeIndex).setFill(Color.GREEN);
+                        
+                        mergeIndex++;
+                    } else {
+                        // This merge is complete, move to next subarray pair
+                        leftStart = leftStart + 2 * currentSize;
+                        mergeState = 1;
+                    }
+                    break;
+                    
+                case 4: // Verify and finalize
+                    // Verify the array is sorted
+                    boolean sorted = true;
+                    for (int i = 1; i < maxSize; i++) {
+                        if (mergeSortArray[i - 1] > mergeSortArray[i]) {
+                            sorted = false;
+                            System.out.println("Array not sorted at index " + i + ": " + 
+                                              mergeSortArray[i - 1] + " > " + mergeSortArray[i]);
+                            break;
+                        }
+                    }
+                    
+                    if (sorted) {
+                        // Final completion - mark all sorted
+                        for (int i = 0; i < maxSize; i++) {
+                            rects.get(i).setFill(Color.GREEN);
+                            
+                            // Ensure all heights match the sorted array (final check)
+                            rects.get(i).setHeight(mergeSortArray[i]);
+                            updateLabelPositions(i);
+                        }
+                        
+                        System.out.println("Merge sort complete!");
+                        timeline.stop();
+                    } else {
+                        // Something went wrong - try to fix by doing a final full merge
+                        System.out.println("Merge sort incomplete - running final pass");
+                        
+                        // Reset to a smaller subarray size to ensure we get there
+                        currentSize = maxSize / 4;
+                        if (currentSize < 1) currentSize = 1;
+                        mergeState = 0;
+                    }
+                    break;
+            }
+        }));
+        
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    // Variables for quick sort visualization
+    private int[] quickSortArray;
+    private int quickSortState = 0;
+    private ArrayList<int[]> quickSortStack = new ArrayList<>();
+    private int pivotIndex = 0;
+    private int partitionLeft = 0, partitionRight = 0;
+    private int partitionI = 0, partitionJ = 0;
+    private boolean partitioningInProgress = false;
+    
+    private void quickSort() {
+        int arraySize = rects.size();
+        
+        // Initialize an array to track the current state of quick sort
+        quickSortArray = new int[arraySize];
+        
+        // Reset state variables
+        quickSortStack.clear();
+        quickSortState = 0;
+        partitioningInProgress = false;
+        
+        // Copy heights to quickSortArray and set initial color to red (unsorted)
+        for (int k = 0; k < arraySize; k++) {
+            rects.get(k).setFill(Color.RED);
+            quickSortArray[k] = (int) rects.get(k).getHeight();
+        }
+        
+        // Add initial range (full array)
+        quickSortStack.add(new int[]{0, arraySize - 1});
+        
+        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
+            switch (quickSortState) {
+                case 0: // Get next subarray to partition
+                    if (quickSortStack.isEmpty()) {
+                        quickSortState = 3; // Done
+                        break;
+                    }
+                    
+                    // Get next range to process
+                    int[] range = quickSortStack.remove(0);
+                    partitionLeft = range[0];
+                    partitionRight = range[1];
+                    
+                    // If the range is invalid or contains one element, it's already sorted
+                    if (partitionLeft >= partitionRight) {
+                        if (partitionLeft == partitionRight) {
+                            rects.get(partitionLeft).setFill(Color.GREEN); // Single element is sorted
+                        }
+                        break;
+                    }
+                    
+                    // Reset colors to show the current range being processed
+                    for (int k = 0; k < arraySize; k++) {
+                        if (k >= partitionLeft && k <= partitionRight) {
+                            rects.get(k).setFill(Color.BLUE); // Current partition
+                        } else {
+                            if (rects.get(k).getFill() != Color.GREEN) {
+                                rects.get(k).setFill(Color.RED); // Unsorted or waiting to be processed
+                            }
+                        }
+                    }
+                    
+                    // Choose the rightmost element as pivot
+                    pivotIndex = partitionRight;
+                    rects.get(pivotIndex).setFill(Color.ORCHID); // Highlight pivot
+                    
+                    // Initialize partition pointers
+                    partitionI = partitionLeft - 1;
+                    partitionJ = partitionLeft;
+                    partitioningInProgress = true;
+                    
+                    quickSortState = 1; // Move to partitioning
+                    break;
+                    
+                case 1: // Partitioning in progress
+                    // If done with partitioning
+                    if (!partitioningInProgress || partitionJ >= partitionRight) {
+                        // Swap pivot with position i+1
+                        partitionI++;
+                        
+                        // Visualize the swap
+                        rects.get(partitionI).setFill(Color.YELLOW);
+                        rects.get(pivotIndex).setFill(Color.YELLOW);
+                        
+                        // Swap elements
+                        int temp = quickSortArray[partitionI];
+                        quickSortArray[partitionI] = quickSortArray[pivotIndex];
+                        quickSortArray[pivotIndex] = temp;
+                        
+                        // Update visualization
+                        rects.get(partitionI).setHeight(quickSortArray[partitionI]);
+                        rects.get(pivotIndex).setHeight(quickSortArray[pivotIndex]);
+                        updateLabelPositions(partitionI, pivotIndex);
+                        
+                        // Mark pivot in final position
+                        rects.get(partitionI).setFill(Color.GREEN);
+                        
+                        // Add subarrays to the stack for further processing
+                        if (partitionLeft < partitionI - 1) {
+                            quickSortStack.add(0, new int[]{partitionLeft, partitionI - 1}); // Left side
+                        } else if (partitionLeft == partitionI - 1) {
+                            // Single element on left is sorted
+                            rects.get(partitionLeft).setFill(Color.GREEN);
+                        }
+                        
+                        if (partitionI + 1 < partitionRight) {
+                            quickSortStack.add(0, new int[]{partitionI + 1, partitionRight}); // Right side
+                        } else if (partitionI + 1 == partitionRight) {
+                            // Single element on right is sorted
+                            rects.get(partitionRight).setFill(Color.GREEN);
+                        }
+                        
+                        partitioningInProgress = false;
+                        quickSortState = 0; // Back to getting next subarray
+                        break;
+                    }
+                    
+                    // Highlight current comparison
+                    for (int k = partitionLeft; k <= partitionRight; k++) {
+                        if (k == pivotIndex) {
+                            rects.get(k).setFill(Color.ORCHID); // Pivot
+                        } else if (k == partitionJ) {
+                            rects.get(k).setFill(Color.YELLOW); // Current element
+                        } else if (k <= partitionI) {
+                            rects.get(k).setFill(Color.BLUE); // Elements <= pivot
+                        } else {
+                            rects.get(k).setFill(Color.RED); // Elements > pivot
+                        }
+                    }
+                    
+                    // Compare current element with pivot
+                    if (quickSortArray[partitionJ] < quickSortArray[pivotIndex]) {
+                        // Increment i and swap elements
+                        partitionI++;
+                        
+                        // Visualize the swap
+                        rects.get(partitionI).setFill(Color.YELLOW);
+                        rects.get(partitionJ).setFill(Color.YELLOW);
+                        
+                        // Swap elements if they're different
+                        if (partitionI != partitionJ) {
+                            int temp = quickSortArray[partitionI];
+                            quickSortArray[partitionI] = quickSortArray[partitionJ];
+                            quickSortArray[partitionJ] = temp;
+                            
+                            // Update visualization
+                            rects.get(partitionI).setHeight(quickSortArray[partitionI]);
+                            rects.get(partitionJ).setHeight(quickSortArray[partitionJ]);
+                            updateLabelPositions(partitionI, partitionJ);
+                        }
+                    }
+                    
+                    // Move to next element
+                    partitionJ++;
+                    
+                    break;
+                    
+                case 3: // Done
+                    // Check if array is sorted
+                    boolean sorted = true;
+                    for (int k = 1; k < arraySize; k++) {
+                        if (quickSortArray[k - 1] > quickSortArray[k]) {
+                            sorted = false;
+                            break;
+                        }
+                    }
+                    
+                    if (sorted) {
+                        // Set all to green when sorted
+                        for (int k = 0; k < arraySize; k++) {
+                            rects.get(k).setFill(Color.GREEN);
+                        }
+                        timeline.stop();
+                    }
+                    break;
+            }
+        }));
+        
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 }
