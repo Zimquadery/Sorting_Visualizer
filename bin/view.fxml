@@ -27,7 +27,7 @@
                   <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false" />
                </children>
             </HBox>
-            <!-- Speed control slider -->
+            <!-- Speed control slider and complexity info -->
             <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
                   <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="34.0" prefWidth="272.0">
@@ -41,10 +41,17 @@
                   <Label styleClass="speedLabel" text="Fast" />
                </children>
             </HBox>
+            <!-- Complexity info label -->
+            <Label fx:id="complexityLabel" styleClass="speedLabel" text="" />
          </children>
       </VBox>
 
                   <!-- AnchorPane for array visualization -->
       <AnchorPane fx:id="visualizationPane" layoutX="60.0" layoutY="200.0" minWidth="500.0" pickOnBounds="false" prefHeight="422.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="180.0" />
+
+      <!-- Color Legend at the bottom -->
+      <HBox fx:id="legendBox" spacing="20.0" alignment="CENTER_LEFT" style="-fx-padding: 10; -fx-background-color: #f4f4f4;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="10.0">
+         <!-- Legend items will be added dynamically from Controller -->
+      </HBox>
    </children>
 </AnchorPane>
