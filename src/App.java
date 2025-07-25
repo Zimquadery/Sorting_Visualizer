@@ -21,6 +21,7 @@ public class App extends Application {
         
         primaryStage.setScene(scene);
         primaryStage.setTitle("Sorting Algorithm Visualiser");
+        primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("icon.png")));
         
         primaryStage.show();
     }
