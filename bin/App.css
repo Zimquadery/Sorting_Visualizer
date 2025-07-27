@@ -1,23 +1,15 @@
-#rndBtn,#sortBtn,#customArrayBtn{
-    -fx-background-color: #158506;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-font-size: 16px;
+
+
+
+
+/* Main background and container */
+#complexityLabel {
     -fx-font-weight: bold;
-    -fx-text-fill:white;
-    -fx-padding: 5px 10px;
-    -fx-cursor: hand;
-    -fx-border-width: 2px;
-    -fx-border-style: solid ;
-    -fx-border-color: #158506;
+    -fx-font-size: 15px;
+    -fx-text-fill: #1a237e;
 }
-#rndBtn:hover,#sortBtn:hover,#customArrayBtn:hover{
-    -fx-background-color: #f8f8f8;
-    -fx-text-fill: #158506;
-    -fx-border-color: #158506;
-    /* -fx-border-width: 2px; */
-    
-}
+
+/* Title */
 #title{
     -fx-font-size: 34px;
     -fx-font-weight: bold;
@@ -28,56 +20,93 @@
     
 }
 
-/* Style for the bar height labels */
+/* Buttons */
+#rndBtn, #customArrayBtn, #sortBtn, #viewDetailsBtn {
+    -fx-background-color: #26c6da;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #fff;
+    -fx-padding: 5px 20px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, #b2ebf2, 2, 0.10, 0, 1);
+    -fx-transition: all 0.2s;
+    -fx-font-weight: bold;
+}
+#rndBtn:hover, #customArrayBtn:hover, #sortBtn:hover, #viewDetailsBtn:hover {
+    -fx-background-color: #00838f;
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(gaussian, #26c6da, 8, 0.15, 0, 2);
+}
+
+/* ChoiceBox */
+#Algorithm {
+    -fx-background-color: #fff;
+    -fx-border-radius: 10px;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-border-width: 1.5px;
+    -fx-border-color: #26c6da;
+    -fx-padding: 6px 14px;
+}
+
+/* Custom Array Field */
+#customArrayField {
+    -fx-border-radius: 10px;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+    -fx-padding: 9px 16px;
+    -fx-cursor: hand;
+    -fx-border-width: 1.5px;
+    -fx-border-color: #26c6da;
+    -fx-background-color: #e0f7fa;
+    -fx-text-fill: #1b3a3a;
+}
+
+/* Bar height labels */
 .bar-label {
-    -fx-font-size: 11px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-fill: #27548A;
+    -fx-fill: #00838f;
+    -fx-stroke: #fff;
+    -fx-stroke-width: 0.5;
 }
 
-#container{
-    -fx-padding: 5px;
-    -fx-border-radius: 5px;
-}
-#Algorithm{
-    -fx-background-color: #BDDDE4;
-    -fx-border-radius: 5px;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-}
-#customArrayField{
-    -fx-border-radius: 5px;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 5px 10px;
-    -fx-cursor: hand;
-    -fx-border-width: 2px;
-}
-#customArrayField{
-    -fx-border-color: #158506;
-    -fx-background-color: #f8f8f8;
-    -fx-text-fill: #158506;
-}
-
+/* Speed slider */
 #speedSlider {
     -fx-cursor: hand;
+    -fx-pref-height: 20px;
+    -fx-pref-width: 210px;
 }
-
 #speedSlider .track {
-    -fx-background-color: #BDDDE4;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-background-color: #b2ebf2;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 10px;
 }
-
 #speedSlider .thumb {
-    -fx-background-color: #158506;
-    -fx-background-radius: 8px;
-    -fx-border-width: 1px;
+    -fx-background-color: #26c6da;
+    -fx-background-radius: 12px;
+    -fx-pref-width: 22px;
+    -fx-pref-height: 22px;
+    -fx-effect: dropshadow(gaussian, #26c6da, 4, 0.15, 0, 1);
+    -fx-border-width: 0;
 }
 
+/* Speed label */
 .speedLabel {
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #27548A;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1b3a3a;
+}
+
+/* Legend box */
+#legendBox {
+    -fx-background-color: #fff;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, #b2ebf2, 4, 0.10, 0, 1);
+    -fx-padding: 10px 20px;
 }

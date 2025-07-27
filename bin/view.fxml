@@ -21,13 +21,18 @@
             <!-- Button Row (HBox for buttons) -->
             <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
-                  <Button fx:id="rndBtn" minWidth="140.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="35.0" prefWidth="140.0" text="Random Array" />
-                  <Button fx:id="sortBtn" minWidth="120.0" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="140.0" text="Sort" />
-                  <Button fx:id="customArrayBtn" minWidth="120.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="35.0" prefWidth="140.0" text="Custom Array" />
+                  <Button fx:id="rndBtn" minWidth="140.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="39.0" prefWidth="150.0" text="Random Array" />
+                  <Button fx:id="customArrayBtn" minWidth="120.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="39.0" prefWidth="147.0" text="Custom Array" />
                   <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false" />
                </children>
             </HBox>
-            <!-- Speed control slider and complexity info -->
+            <HBox prefHeight="14.0" prefWidth="730.0" spacing="10.0">
+               <children>
+                  <Button fx:id="viewDetailsBtn" minWidth="120.0" mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="35.0" prefWidth="140.0" text="View Details" />
+                  <Button fx:id="sortBtn" minWidth="120.0" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="140.0" text="Sort" />
+               </children>
+            </HBox>
+            <!-- Speed control slider -->
             <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
                   <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="34.0" prefWidth="272.0">
@@ -47,11 +52,12 @@
       </VBox>
 
                   <!-- AnchorPane for array visualization -->
-      <AnchorPane fx:id="visualizationPane" layoutX="60.0" layoutY="200.0" minWidth="500.0" pickOnBounds="false" prefHeight="422.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="180.0" />
+      <AnchorPane fx:id="visualizationPane" layoutX="53.599999999999994" layoutY="252.8" minWidth="500.0" pickOnBounds="false" prefHeight="342.0" prefWidth="701.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="248.0" />
 
       <!-- Color Legend at the bottom -->
-      <HBox fx:id="legendBox" spacing="20.0" alignment="CENTER_LEFT" style="-fx-padding: 10; -fx-background-color: #f4f4f4;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="10.0">
+      <HBox fx:id="legendBox" alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 10; -fx-background-color: #f4f4f4;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <!-- Legend items will be added dynamically from Controller -->
       </HBox>
+     <!-- View Details button moved to button row above -->
    </children>
 </AnchorPane>

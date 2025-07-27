@@ -37,12 +37,37 @@ public class Controller {
     @FXML
     private javafx.scene.control.Label complexityLabel;
 
+    @FXML
+    private Button viewDetailsBtn;
+
     
     // Timeline duration in milliseconds
     private int timelineDuration = 200;
     
     // Sorting algorithms instance
     private SortingAlgorithms sortingAlgorithms;
+
+    // Show details popup for selected algorithm
+    @FXML
+    private void handleViewDetails(ActionEvent event) {
+        String algo = currentAlgorithm;
+        String details = AlgorithmWorkingDetails.DETAILS.getOrDefault(algo, "No details available.");
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle(algo + " Details");
+        alert.setHeaderText(algo + " Details");
+        javafx.scene.control.TextArea textArea = new javafx.scene.control.TextArea(details);
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
+        textArea.setPrefWidth(800);
+        textArea.setPrefHeight(600);
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        textArea.setStyle("-fx-font-size: 18px;");
+        alert.getDialogPane().setContent(textArea);
+        alert.getDialogPane().setPrefWidth(850);
+        alert.getDialogPane().setPrefHeight(700);
+        alert.showAndWait();
+    }
 
     void setRoot(AnchorPane root) {
         this.visualizationPane = (AnchorPane) root.lookup("#visualizationPane");
