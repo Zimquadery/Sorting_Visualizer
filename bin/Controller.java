@@ -136,8 +136,11 @@ public class Controller {
     
     private void updateTimelineSpeed() {
         if (sortingAlgorithms != null) {
-            // Simply update the speed without restarting the animation
+            sortingAlgorithms.stopAnimation();
             sortingAlgorithms.updateSpeed(timelineDuration);
+            
+            // Restart the current algorithm with new speed
+            sort(new ActionEvent());
         }
     }
 

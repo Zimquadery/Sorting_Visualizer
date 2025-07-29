@@ -22,14 +22,14 @@
             <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
                   <Button fx:id="rndBtn" minWidth="140.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="39.0" prefWidth="150.0" text="Random Array" />
-                  <Button fx:id="customArrayBtn" minWidth="120.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="39.0" prefWidth="147.0" text="Custom Array" />
+                  <Button fx:id="customArrayBtn" minWidth="140.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="39.0" prefWidth="150.0" text="Custom Array" />
                   <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false" />
                </children>
             </HBox>
-            <HBox prefHeight="14.0" prefWidth="730.0" spacing="10.0">
+            <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
-                  <Button fx:id="viewDetailsBtn" minWidth="120.0" mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="35.0" prefWidth="140.0" text="View Details" />
-                  <Button fx:id="sortBtn" minWidth="120.0" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="140.0" text="Sort" />
+                  <Button fx:id="viewDetailsBtn" minWidth="140.0" mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="39.0" prefWidth="150.0" text="View Details" />
+                  <Button fx:id="sortBtn" minWidth="140.0" mnemonicParsing="false" onAction="#sort" prefHeight="39.0" prefWidth="150.0" text="Sort" />
                </children>
             </HBox>
             <!-- Speed control slider -->
@@ -42,7 +42,7 @@
                   </ChoiceBox>
                   <Label styleClass="speedLabel" text="Animation Speed:" />
                   <Label styleClass="speedLabel" text="Slow" />
-                  <Slider fx:id="speedSlider" blockIncrement="100.0" max="1000.0" min="100.0" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" value="200.0" />
+                  <Slider fx:id="speedSlider" blockIncrement="100.0" max="1000.0" min="100.0" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" value="900.0" />
                   <Label styleClass="speedLabel" text="Fast" />
                </children>
             </HBox>

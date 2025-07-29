@@ -1,14 +1,3 @@
-
-
-
-
-/* Main background and container */
-#complexityLabel {
-    -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-text-fill: #1a237e;
-}
-
 /* Title */
 #title{
     -fx-font-size: 34px;
@@ -16,13 +5,12 @@
     -fx-text-fill: #f4f8f9;
     -fx-padding: 5px 20px;
     -fx-background-color:#27548A;
-    /* -fx-background-radius: 50px; */
     
 }
 
 /* Buttons */
 #rndBtn, #customArrayBtn, #sortBtn, #viewDetailsBtn {
-    -fx-background-color: #26c6da;
+    -fx-background-color: #0277bd;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
     -fx-font-size: 15px;
@@ -31,14 +19,14 @@
     -fx-padding: 5px 20px;
     -fx-cursor: hand;
     -fx-border-width: 0;
-    -fx-effect: dropshadow(gaussian, #b2ebf2, 2, 0.10, 0, 1);
+    -fx-effect: dropshadow(gaussian, #64b5f6, 2, 0.10, 0, 1);
     -fx-transition: all 0.2s;
     -fx-font-weight: bold;
 }
 #rndBtn:hover, #customArrayBtn:hover, #sortBtn:hover, #viewDetailsBtn:hover {
     -fx-background-color: #00838f;
     -fx-text-fill: #fff;
-    -fx-effect: dropshadow(gaussian, #26c6da, 8, 0.15, 0, 2);
+    -fx-effect: dropshadow(gaussian, #27548A, 8, 0.15, 0, 2);
 }
 
 /* ChoiceBox */
@@ -46,11 +34,9 @@
     -fx-background-color: #fff;
     -fx-border-radius: 10px;
     -fx-font-size: 15px;
-    -fx-font-weight: 600;
     -fx-cursor: hand;
     -fx-border-width: 1.5px;
-    -fx-border-color: #26c6da;
-    -fx-padding: 6px 14px;
+    -fx-border-color: #0277bd;
 }
 
 /* Custom Array Field */
@@ -61,18 +47,15 @@
     -fx-padding: 9px 16px;
     -fx-cursor: hand;
     -fx-border-width: 1.5px;
-    -fx-border-color: #26c6da;
-    -fx-background-color: #e0f7fa;
-    -fx-text-fill: #1b3a3a;
+    -fx-border-color: #0277bd;
+    -fx-text-fill: #27548A;
 }
 
 /* Bar height labels */
 .bar-label {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-fill: #00838f;
-    -fx-stroke: #fff;
-    -fx-stroke-width: 0.5;
+    -fx-fill: #27548A;
 }
 
 /* Speed slider */
@@ -82,31 +65,29 @@
     -fx-pref-width: 210px;
 }
 #speedSlider .track {
-    -fx-background-color: #b2ebf2;
+    -fx-background-color: #26c6da;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
     -fx-pref-height: 10px;
 }
 #speedSlider .thumb {
-    -fx-background-color: #26c6da;
+    -fx-background-color: #0277bd;
     -fx-background-radius: 12px;
     -fx-pref-width: 22px;
     -fx-pref-height: 22px;
-    -fx-effect: dropshadow(gaussian, #26c6da, 4, 0.15, 0, 1);
+    -fx-effect: dropshadow(gaussian, #1976d2, 4, 0.15, 0, 1);
     -fx-border-width: 0;
 }
 
 /* Speed label */
 .speedLabel {
     -fx-font-size: 14px;
-    -fx-font-weight: 600;
-    -fx-text-fill: #1b3a3a;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27548A;
 }
 
-/* Legend box */
-#legendBox {
-    -fx-background-color: #fff;
-    -fx-border-radius: 10px;
-    -fx-effect: dropshadow(gaussian, #b2ebf2, 4, 0.10, 0, 1);
-    -fx-padding: 10px 20px;
+#complexityLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-fill: #27548A;
 }

@@ -22,13 +22,13 @@ Sorting_Vizualizer is a JavaFX desktop application for visualizing and interacti
 - `src/view.fxml` - UI layout (FXML)
 - `src/Controller.java` - Main controller for UI logic
 - `src/SortingAlgorithms.java` - Sorting algorithm implementations with animation
-- `src/AlgorithmWorkingDetails.java` - Algorithm explanations and pseudocode
+- `src/AlgorithmDescription.java` - Algorithm explanations and pseudocode
 - `src/App.css` - Centralized UI styling
 
 ## How to Add a New Algorithm
 1. Implement the algorithm in `SortingAlgorithms.java` (with animation support)
 2. Add its name to the `Algorithm` ChoiceBox in `Controller.java` and `view.fxml`
-3. Add a description and pseudocode in `AlgorithmWorkingDetails.java`
+3. Add a description and pseudocode in `AlgorithmDescription.java`
 
 ## Contributing
 Pull requests are welcome! Please follow the existing code style and update documentation as needed.

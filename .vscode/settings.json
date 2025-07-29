@@ -5,13 +5,13 @@
 	"java.project.outputPath": "bin",
 	"java.project.referencedLibraries": [
 		"lib/**/*.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx.base.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx.controls.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx.fxml.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx.graphics.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx.media.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx.swing.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx.web.jar",
-		"D:/downlods/openjfx-23.0.2_windows-x64_bin-sdk/javafx-sdk-23.0.2/lib/javafx-swt.ja"
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx.base.jar",
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx.controls.jar",
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx.fxml.jar",
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx.graphics.jar",
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx.media.jar",
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx.swing.jar",
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx.web.jar",
+		"C:/Program Files/Java/javafx-sdk-23.0.2/lib/javafx-swt.ja"
 	]
 }

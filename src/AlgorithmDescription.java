@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class AlgorithmWorkingDetails {
+public class AlgorithmDescription {
     public static final Map<String, String> DETAILS = new HashMap<>();
     static {
         DETAILS.put("Bubble Sort", "Bubble Sort is a simple comparison-based sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. This process is repeated until the list is sorted.\n\n" +

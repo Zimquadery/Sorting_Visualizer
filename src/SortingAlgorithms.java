@@ -48,8 +48,9 @@ public class SortingAlgorithms {
     private boolean partitioningInProgress = false;
     
 
-    // Constants for rectangle dimensions
+    // Constants for rectangle dimensions and animation
     private final int W = 15;
+    private static final int BASE_DURATION_MS = 200; // Base duration for timeline animations
 
     // Algorithm complexity data
     private static final Map<String, String> ALGORITHM_COMPLEXITY = new HashMap<>();
@@ -88,6 +89,13 @@ public class SortingAlgorithms {
      */
     public void updateSpeed(int newDuration) {
         this.timelineDuration = newDuration;
+        // Update the timeline rate if it's currently running
+        if (timeline != null) {
+            // Calculate the rate based on the original duration vs new duration
+            // Higher rate = faster animation (shorter duration)
+            double newRate = (double) BASE_DURATION_MS / newDuration;
+            timeline.setRate(newRate);
+        }
     }
     
     /**
@@ -114,7 +122,7 @@ public class SortingAlgorithms {
     public Timeline bubbleSort() {
         resetState();
         
-        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(BASE_DURATION_MS), e -> {
             int arraySize = rects.size();
 
             switch (state) {
@@ -186,7 +194,7 @@ public class SortingAlgorithms {
     public Timeline selectionSort() {
         resetState();
         
-        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(BASE_DURATION_MS), e -> {
             int arraySize = rects.size();
 
             switch (state) {
@@ -278,7 +286,7 @@ public class SortingAlgorithms {
     public Timeline insertionSort() {
         resetState();
         
-        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(BASE_DURATION_MS), e -> {
             int arraySize = rects.size();
 
             switch (state) {
@@ -401,7 +409,7 @@ public class SortingAlgorithms {
         leftStart = 0;
         maxSize = arraySize;
         
-        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(BASE_DURATION_MS), e -> {
             switch (mergeState) {
                 case 0: // Initialize a new size for merging
                     if (currentSize >= maxSize) {
@@ -531,7 +539,7 @@ public class SortingAlgorithms {
         // Add initial range (full array)
         quickSortStack.add(new int[]{0, arraySize - 1});
         
-        timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(BASE_DURATION_MS), e -> {
             switch (quickSortState) {
                 case 0: // Get next subarray to partition
                     if (quickSortStack.isEmpty()) {
