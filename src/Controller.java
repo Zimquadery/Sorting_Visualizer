@@ -1,4 +1,5 @@
 import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +31,15 @@ public class Controller {
     private String currentAlgorithm = "Bubble Sort";
     @FXML
     private javafx.scene.control.Label complexityLabel;
+
+    @FXML
+    private javafx.scene.control.Label performanceLabel;
+
+    @FXML
+    private javafx.scene.control.Label comparisonsLabel;
+
+    @FXML
+    private javafx.scene.control.Label swapsLabel;
 
     @FXML
     private Button viewDetailsBtn;
@@ -113,7 +123,16 @@ public class Controller {
     private void updateComplexityLabel(String algorithm) {
         String complexity = SortingAlgorithms.getComplexity(algorithm);
         if (complexityLabel != null) {
-            complexityLabel.setText("Complexity: " + complexity);
+            complexityLabel.setText("Complexity:  " + complexity);
+        }
+    }
+
+    private void updatePerformanceLabel() {
+        if (comparisonsLabel != null && swapsLabel != null && sortingAlgorithms != null) {
+            int comparisons = sortingAlgorithms.getComparisons();
+            int swaps = sortingAlgorithms.getSwaps();
+            comparisonsLabel.setText(String.valueOf(comparisons));
+            swapsLabel.setText(String.valueOf(swaps));
         }
     }
 
@@ -165,6 +184,12 @@ public class Controller {
     void randomizer(ActionEvent event) {
         if (sortingAlgorithms != null) {
             sortingAlgorithms.stopAnimation();
+        }
+
+        // Reset performance label
+        if (comparisonsLabel != null && swapsLabel != null) {
+            comparisonsLabel.setText("0");
+            swapsLabel.setText("0");
         }
 
         visualizationPane.getChildren().removeAll(rects);
@@ -226,6 +251,12 @@ public class Controller {
                 sortingAlgorithms.stopAnimation();
             }
 
+            // Reset performance label
+            if (comparisonsLabel != null && swapsLabel != null) {
+                comparisonsLabel.setText("0");
+                swapsLabel.setText("0");
+            }
+
             visualizationPane.getChildren().removeAll(rects);
             visualizationPane.getChildren().removeAll(labels);
             rects.clear();
@@ -273,6 +304,12 @@ public class Controller {
             return;
         }
 
+        // Reset performance label
+        if (comparisonsLabel != null && swapsLabel != null) {
+            comparisonsLabel.setText("0");
+            swapsLabel.setText("0");
+        }
+
         // Create new sorting algorithms instance with current parameters
         sortingAlgorithms = new SortingAlgorithms(rects, labels, timelineDuration);
 
@@ -301,7 +338,20 @@ public class Controller {
         
         // Start the animation if timeline was created
         if (timeline != null) {
+            // Create a separate timeline to update performance label regularly
+            Timeline performanceUpdateTimeline = new Timeline(
+                new KeyFrame(javafx.util.Duration.millis(50), e -> updatePerformanceLabel())
+            );
+            performanceUpdateTimeline.setCycleCount(Timeline.INDEFINITE);
+            
+            // Stop performance update timeline when sorting is complete
+            timeline.setOnFinished(e -> {
+                performanceUpdateTimeline.stop();
+                updatePerformanceLabel(); // Final update
+            });
+            
             timeline.play();
+            performanceUpdateTimeline.play();
         }
     }
 

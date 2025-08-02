@@ -21,6 +21,10 @@ public class SortingAlgorithms {
     private Timeline timeline;
     private int timelineDuration;
     
+    // Performance tracking variables
+    private int comparisons = 0;
+    private int swaps = 0;
+    
     // Common state variables
     private byte state = 0;
     private int i = 0;
@@ -29,6 +33,7 @@ public class SortingAlgorithms {
     // Merge sort specific variables
     private int[] mergeSortArray;
     private int[] tempArray;
+    private int[] originalArray; // Track original positions to count actual moves
     private int currentSize;
     private int leftStart;
     private int mergeState;
@@ -72,6 +77,30 @@ public class SortingAlgorithms {
     }
     
     /**
+     * Returns the current number of comparisons performed.
+     * @return Number of comparisons
+     */
+    public int getComparisons() {
+        return comparisons;
+    }
+    
+    /**
+     * Returns the current number of swaps performed.
+     * @return Number of swaps
+     */
+    public int getSwaps() {
+        return swaps;
+    }
+    
+    /**
+     * Resets the performance counters.
+     */
+    public void resetPerformanceCounters() {
+        comparisons = 0;
+        swaps = 0;
+    }
+    
+    /**
      * Constructor for the SortingAlgorithms class.
      * @param rects List of rectangles to be sorted
      * @param labels List of text labels corresponding to the rectangles
@@ -95,6 +124,16 @@ public class SortingAlgorithms {
             // Higher rate = faster animation (shorter duration)
             double newRate = (double) BASE_DURATION_MS / newDuration;
             timeline.setRate(newRate);
+        }
+    }
+    
+    /**
+     * Sets the initial rate for a newly created timeline based on current duration.
+     */
+    private void setInitialTimelineRate() {
+        if (timeline != null) {
+            double initialRate = (double) BASE_DURATION_MS / timelineDuration;
+            timeline.setRate(initialRate);
         }
     }
     
@@ -150,8 +189,12 @@ public class SortingAlgorithms {
                     }
 
                     if (j < arraySize - i - 1 && rects.get(j).getHeight() > rects.get(j + 1).getHeight()) {
+                        comparisons++; // Increment comparison counter
                         state = 2; // Need to swap
                     } else {
+                        if (j < arraySize - i - 1) {
+                            comparisons++; // Increment comparison counter
+                        }
                         j++;
                         if (j >= arraySize - i - 1) {
                             rects.get(arraySize - i - 1).setFill(Color.GREEN);
@@ -184,6 +227,7 @@ public class SortingAlgorithms {
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
+        setInitialTimelineRate(); // Apply the correct speed from the start
         return timeline;
     }
     
@@ -226,12 +270,14 @@ public class SortingAlgorithms {
 
                         // Check if new minimum found
                         if (rects.get(j).getHeight() < rects.get(i).getHeight()) {
+                            comparisons++; // Increment comparison counter
                             rects.get(j).setFill(Color.ORCHID);
                             int temp = i;
                             i = j;
                             j = temp;
                             state = 2; // Need to swap
                         } else {
+                            comparisons++; // Increment comparison counter
                             j++;
                             if (j >= arraySize) {
                                 rects.get(i).setFill(Color.GREEN);
@@ -276,6 +322,7 @@ public class SortingAlgorithms {
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
+        setInitialTimelineRate(); // Apply the correct speed from the start
         return timeline;
     }
     
@@ -346,9 +393,13 @@ public class SortingAlgorithms {
                     
                     // Check if element needs to be moved
                     if (j > 0 && rects.get(j - 1).getHeight() > rects.get(j).getHeight()) {
+                        comparisons++; // Increment comparison counter
                         swap(j, j - 1);
                         j--;
                     } else {
+                        if (j > 0) {
+                            comparisons++; // Increment comparison counter
+                        }
                         // Found correct position
                         for (int k = 0; k <= i; k++) {
                             rects.get(k).setFill(Color.GREEN);
@@ -375,6 +426,7 @@ public class SortingAlgorithms {
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
+        setInitialTimelineRate(); // Apply the correct speed from the start
         return timeline;
     }
     
@@ -393,13 +445,18 @@ public class SortingAlgorithms {
             return null;
         }
         
+        // Reset performance counters
+        resetPerformanceCounters();
+        
         // Initialize arrays and variables
         mergeSortArray = new int[arraySize];
         tempArray = new int[arraySize];
+        originalArray = new int[arraySize]; // Store original array for comparison
         
-        // Copy rectangle heights to array
+        // Copy rectangle heights to arrays
         for (int i = 0; i < arraySize; i++) {
             mergeSortArray[i] = (int)rects.get(i).getHeight();
+            originalArray[i] = (int)rects.get(i).getHeight(); // Keep original for comparison
             rects.get(i).setFill(Color.RED);
         }
         
@@ -464,14 +521,28 @@ public class SortingAlgorithms {
                         // Choose smallest element from either left or right subarray
                         if (leftIndex < rightStart && 
                            (rightIndex > rightEnd || tempArray[leftIndex] <= tempArray[rightIndex])) {
+                            comparisons++; // Increment comparison counter
                             mergeSortArray[mergeIndex] = tempArray[leftIndex];
                             rects.get(mergeIndex).setHeight(tempArray[leftIndex]);
                             updateLabelPosition(mergeIndex);
+                            
+                            // Only count as a move if element changed position from original
+                            if (originalArray[mergeIndex] != tempArray[leftIndex]) {
+                                swaps++; // Count only actual position changes
+                            }
                             leftIndex++;
                         } else {
+                            if (rightIndex <= rightEnd) {
+                                comparisons++; // Increment comparison counter
+                            }
                             mergeSortArray[mergeIndex] = tempArray[rightIndex];
                             rects.get(mergeIndex).setHeight(tempArray[rightIndex]);
                             updateLabelPosition(mergeIndex);
+                            
+                            // Only count as a move if element changed position from original
+                            if (originalArray[mergeIndex] != tempArray[rightIndex]) {
+                                swaps++; // Count only actual position changes
+                            }
                             rightIndex++;
                         }
                         
@@ -512,6 +583,7 @@ public class SortingAlgorithms {
         }));
         
         timeline.setCycleCount(Timeline.INDEFINITE);
+        setInitialTimelineRate(); // Apply the correct speed from the start
         return timeline;
     }
     
@@ -521,6 +593,9 @@ public class SortingAlgorithms {
      */
     public Timeline quickSort() {
         int arraySize = rects.size();
+        
+        // Reset performance counters
+        resetPerformanceCounters();
         
         // Initialize an array to track the current state of quick sort
         quickSortArray = new int[arraySize];
@@ -618,8 +693,11 @@ public class SortingAlgorithms {
                     
                     // Compare current element with pivot
                     if (quickSortArray[partitionJ] < quickSortArray[pivotIndex]) {
+                        comparisons++; // Increment comparison counter
                         partitionI++;
                         swapQuickSort(partitionI, partitionJ);
+                    } else {
+                        comparisons++; // Increment comparison counter
                     }
                     
                     // Move to next element
@@ -647,6 +725,7 @@ public class SortingAlgorithms {
         }));
         
         timeline.setCycleCount(Timeline.INDEFINITE);
+        setInitialTimelineRate(); // Apply the correct speed from the start
         return timeline;
     }
     
@@ -669,6 +748,9 @@ public class SortingAlgorithms {
         
         updateLabelPosition(index1);
         updateLabelPosition(index2);
+        
+        // Increment swap counter
+        swaps++;
     }
     
     /**
@@ -693,6 +775,9 @@ public class SortingAlgorithms {
         // Update labels
         updateLabelPosition(index1);
         updateLabelPosition(index2);
+        
+        // Increment swap counter
+        swaps++;
     }
     
     /**
@@ -721,5 +806,6 @@ public class SortingAlgorithms {
         state = 0;
         i = 0;
         j = 0;
+        resetPerformanceCounters();
     }
 }

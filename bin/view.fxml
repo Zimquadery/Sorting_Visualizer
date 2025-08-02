@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="380.0" prefHeight="600.0" prefWidth="800.0" stylesheets="@App.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="380.0" prefHeight="650.0" prefWidth="800.0" stylesheets="@App.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <!-- Navbar (VBox for title and buttons) -->
       <VBox layoutX="80.0" layoutY="50.4" prefWidth="700.0" spacing="10.0" style="-fx-padding: 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
@@ -35,7 +35,7 @@
             <!-- Speed control slider -->
             <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="455.0" spacing="10.0">
                <children>
-                  <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="34.0" prefWidth="272.0">
+                  <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="34.0" prefWidth="150.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -46,8 +46,22 @@
                   <Label styleClass="speedLabel" text="Fast" />
                </children>
             </HBox>
-            <!-- Complexity info label -->
-            <Label fx:id="complexityLabel" styleClass="speedLabel" text="" />
+            <HBox prefHeight="36.0" prefWidth="200.0">
+               <children>
+                  <!-- Complexity info label -->
+                  <Label fx:id="complexityLabel" styleClass="speedLabel" text="" />
+                  <!-- Performance analytics HBox -->
+                  <HBox fx:id="performanceBox" spacing="2.0">
+                     <children>
+                        <Label fx:id="performanceLabel" styleClass="performanceLabel" text="       Performance:" />
+                        <Label fx:id="performanceLabel2" styleClass="performanceLabel" text=" comparisons: " />
+                        <Label fx:id="comparisonsLabel" styleClass="performanceNumber" text="0" />
+                        <Label fx:id="performanceLabel3" styleClass="performanceLabel" text=", swaps: " />
+                        <Label fx:id="swapsLabel" styleClass="performanceNumber" text="0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
          </children>
       </VBox>
 
