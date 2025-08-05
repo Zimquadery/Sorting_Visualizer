@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.geometry.Pos;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 
 public class Controller {
 
@@ -45,21 +47,18 @@ public class Controller {
     private Button viewDetailsBtn;
 
     
-    // Timeline duration in milliseconds
     private int timelineDuration = 200;
     
-    // Sorting algorithms instance
     private SortingAlgorithms sortingAlgorithms;
 
-    // Show details popup for selected algorithm
     @FXML
     private void handleViewDetails(ActionEvent event) {
         String algo = currentAlgorithm;
         String details = AlgorithmDescription.DETAILS.getOrDefault(algo, "No details available.");
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle(algo + " Details");
         alert.setHeaderText(algo + " Details");
-        javafx.scene.control.TextArea textArea = new javafx.scene.control.TextArea(details);
+        TextArea textArea = new TextArea(details);
         textArea.setWrapText(true);
         textArea.setEditable(false);
         textArea.setPrefWidth(800);
@@ -77,25 +76,21 @@ public class Controller {
         this.visualizationPane = (AnchorPane) root.lookup("#visualizationPane");
         this.legendBox = (HBox) root.lookup("#legendBox");
 
-        // Add listener to reposition rectangles when the pane size changes
         visualizationPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             if (!rects.isEmpty()) {
                 centerRectangles();
             }
         });
 
-        // Initialize the algorithm choice box
         initAlgorithmChoiceBox();
         
-        // Initialize the speed slider
         initSpeedSlider();
 
-        randomizer(new ActionEvent()); // Initialize with random rectangles
-        updateLegend(currentAlgorithm); // Set initial legend
+        randomizer(new ActionEvent());
+        updateLegend(currentAlgorithm);
     }
 
     private void initAlgorithmChoiceBox() {
-        // Initialize algorithm choices
         Algorithm.setItems(FXCollections.observableArrayList(
             "Bubble Sort",
             "Selection Sort",
@@ -104,11 +99,9 @@ public class Controller {
             "Quick Sort"
         ));
 
-        // Set default value
         Algorithm.setValue("Bubble Sort");
         updateComplexityLabel("Bubble Sort");
 
-        // Add listener for algorithm selection changes
         Algorithm.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 currentAlgorithm = newVal;
@@ -116,8 +109,6 @@ public class Controller {
                 updateLegend(newVal);
             }
         });
-
-
     }
 
     private void updateComplexityLabel(String algorithm) {
@@ -137,15 +128,11 @@ public class Controller {
     }
 
     private void initSpeedSlider() {
-        // Set initial value (inverted to match the speed calculation)
         speedSlider.setValue(1100 - timelineDuration);
         
-        // Add listener to update animation speed in real-time
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            // Invert the slider value so higher value = faster animation (lower duration)
             timelineDuration = (int)(1100 - newVal.doubleValue());
             
-            // Update timeline if it's running
             if (sortingAlgorithms != null && sortingAlgorithms.getTimeline() != null && 
                 sortingAlgorithms.getTimeline().getStatus() == Timeline.Status.RUNNING) {
                 updateTimelineSpeed();
@@ -155,12 +142,11 @@ public class Controller {
     
     private void updateTimelineSpeed() {
         if (sortingAlgorithms != null) {
-            // Simply update the speed without restarting the animation
             sortingAlgorithms.updateSpeed(timelineDuration);
         }
     }
 
-    final int N = 15;  // Default size for random generation
+    final int N = 15;  
     final int W = 15;
     final int gap = 15;
     ArrayList<Rectangle> rects = new ArrayList<>();
@@ -186,7 +172,6 @@ public class Controller {
             sortingAlgorithms.stopAnimation();
         }
 
-        // Reset performance label
         if (comparisonsLabel != null && swapsLabel != null) {
             comparisonsLabel.setText("0");
             swapsLabel.setText("0");
@@ -197,7 +182,6 @@ public class Controller {
         rects.clear();
         labels.clear();
 
-        // Generate random rectangles
         for (int i = 0; i < N; i++) {
             Rectangle rect = new Rectangle();
             rect.setWidth(W);
@@ -210,7 +194,6 @@ public class Controller {
             labels.add(label);
         }
 
-        // Center the rectangles in the AnchorPane
         centerRectangles();
         visualizationPane.getChildren().addAll(rects);
         visualizationPane.getChildren().addAll(labels);
@@ -219,14 +202,12 @@ public class Controller {
     @FXML
     void handleCustomArray(ActionEvent event) {
         if (!customInputMode) {
-            // Enter custom input mode
             customInputMode = true;
             customArrayBtn.setText("Apply");
             customArrayField.setVisible(true);
             rndBtn.setDisable(true);
             sortBtn.setDisable(true);
         } else {
-            // Apply custom values and exit custom input mode
             customInputMode = false;
             customArrayBtn.setText("Custom Array");
             customArrayField.setVisible(false);
@@ -244,14 +225,12 @@ public class Controller {
         }
 
         try {
-            // Parse comma-separated values
             String[] values = input.split(",");
 
             if (sortingAlgorithms != null) {
                 sortingAlgorithms.stopAnimation();
             }
 
-            // Reset performance label
             if (comparisonsLabel != null && swapsLabel != null) {
                 comparisonsLabel.setText("0");
                 swapsLabel.setText("0");
@@ -275,14 +254,12 @@ public class Controller {
                 labels.add(label);
             }
 
-            // Center the rectangles in the AnchorPane
             centerRectangles();
             visualizationPane.getChildren().addAll(rects);
             visualizationPane.getChildren().addAll(labels);
             customArrayField.clear();
 
         } catch (NumberFormatException e) {
-            // Handle invalid input
             customArrayField.setText("Invalid input! Use comma-separated numbers");
             customInputMode = true;
             customArrayBtn.setText("Apply");
@@ -294,28 +271,23 @@ public class Controller {
 
     @FXML
     void sort(ActionEvent event) {
-        // Stop any existing animation
         if (sortingAlgorithms != null) {
             sortingAlgorithms.stopAnimation();
         }
 
-        // Exit if there are no rectangles to sort
         if (rects.isEmpty()) {
             return;
         }
 
-        // Reset performance label
         if (comparisonsLabel != null && swapsLabel != null) {
             comparisonsLabel.setText("0");
             swapsLabel.setText("0");
         }
 
-        // Create new sorting algorithms instance with current parameters
         sortingAlgorithms = new SortingAlgorithms(rects, labels, timelineDuration);
 
         Timeline timeline = null;
         
-        // Use different sorting algorithms based on selection
         switch (currentAlgorithm) {
             case "Bubble Sort":
                 timeline = sortingAlgorithms.bubbleSort();
@@ -336,15 +308,12 @@ public class Controller {
                 timeline = sortingAlgorithms.bubbleSort(); // Default to bubble sort
         }
         
-        // Start the animation if timeline was created
         if (timeline != null) {
-            // Create a separate timeline to update performance label regularly
             Timeline performanceUpdateTimeline = new Timeline(
                 new KeyFrame(javafx.util.Duration.millis(50), e -> updatePerformanceLabel())
             );
             performanceUpdateTimeline.setCycleCount(Timeline.INDEFINITE);
             
-            // Stop performance update timeline when sorting is complete
             timeline.setOnFinished(e -> {
                 performanceUpdateTimeline.stop();
                 updatePerformanceLabel(); // Final update
@@ -358,33 +327,27 @@ public class Controller {
     private void centerRectangles() {
         double paneWidth = visualizationPane.getWidth();
         if (paneWidth == 0) {
-            // If the pane width is not yet determined, use the parent container's width
             paneWidth = visualizationPane.getParent().getBoundsInLocal().getWidth();
         }
 
-        double totalWidth = rects.size() * (W + gap) - gap; // Total width of all rectangles including gaps
-        double startX = Math.max(0, (paneWidth - totalWidth) / 2); // Calculate starting X position to center the array
+        double totalWidth = rects.size() * (W + gap) - gap;
+        double startX = Math.max(0, (paneWidth - totalWidth) / 2);
 
         for (int i = 0; i < rects.size(); i++) {
             Rectangle rect = rects.get(i);
-            rect.setX(startX + i * (W + gap)); // Set X position for each rectangle
-            rect.setY(50); // Fixed Y position for alignment
+            rect.setX(startX + i * (W + gap));
+            rect.setY(50);
 
-            // Position the text label at the top of the rectangle
             Text label = labels.get(i);
             label.setText(String.valueOf((int)rect.getHeight()));
             label.setX(rect.getX() + W / 2 - label.getBoundsInLocal().getWidth() / 2);
-            label.setY(rect.getY() - 5); // Position above the bar
+            label.setY(rect.getY() - 5);
         }
     }
-    /**
-     * Updates the color legend at the bottom of the window based on the selected algorithm.
-     */
+    
     private void updateLegend(String algorithm) {
         if (legendBox == null) return;
         legendBox.getChildren().clear();
-
-        // Helper to create a legend item
         java.util.function.BiFunction<Color, String, HBox> legendItem = (color, text) -> {
             Rectangle rect = new Rectangle(20, 20, color);
             Label label = new Label(text);
