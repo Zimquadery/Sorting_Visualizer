@@ -30,8 +30,13 @@ Sorting_Vizualizer is a JavaFX desktop application for visualizing and interacti
 2. Add its name to the `Algorithm` ChoiceBox in `Controller.java` and `view.fxml`
 3. Add a description and pseudocode in `AlgorithmDescription.java`
 
+## Animation System
+- The application uses JavaFX's `Timeline` and `KeyFrame` classes to create smooth animations.
+- Each sorting algorithm is implemented as a state machine where different states represent different phases of the algorithm execution
+- The states are `initial`, `comparing`, `swapping` and `sorted`.
+- The visualization updates at each step to show the current state of the sorting process
+- Color coding is used to indicate different element states (unsorted, comparing, sorted, etc.)
+- Performance metrics (comparisons and swaps) are tracked and displayed in real-time
+
 ## Contributing
 Pull requests are welcome! Please follow the existing code style and update documentation as needed.
-
-## License
-This project is for educational use. See LICENSE if present.
