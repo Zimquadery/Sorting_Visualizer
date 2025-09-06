@@ -79,21 +79,21 @@ public class Controller {
     private void handleAbout(ActionEvent event) {
         Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle("About Sorting Algorithm Visualizer");
-        alert.setHeaderText("About");
+        alert.headerTextProperty().set(null);
+        alert.graphicProperty().set(null);
         String aboutText = "Sorting Algorithm Visualizer\n\n" +
-                          "Version: 1.0\n" +
                           "Authors: Md. Farhan Quadery, Saddam Hossain Molla, Rasel Ahmed\n" +
                           "Department of Computer Science and Engineering\n" +
                           "Hajee Mohammad Danesh Science and Technology University\n" +
                           "Batch of 2022\n\n" +
-                          "This application is designed to help students and educators understand " +
-                          "how different sorting algorithms work through visual demonstrations.\n\n" +
+                          "This application is designed to help students and educators understand how different sorting algorithms work through visual demonstrations.\n\n" +
                           "Features:\n" +
                           "- Visualizes Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort\n" +
                           "- Adjustable animation speed\n" +
                           "- Performance metrics tracking\n" +
                           "- Detailed algorithm descriptions\n\n" +
-                          "For educational purposes only.";
+                          "GitHub Repository: https://github.com/Zimquadery/Sorting_Visualizer\n\n" +
+                          "This application is for educational purposes only.";
         
         TextArea textArea = new TextArea(aboutText);
         textArea.setWrapText(true);

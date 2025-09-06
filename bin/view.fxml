@@ -14,53 +14,51 @@
   <children>
     <VBox layoutX="80.0" layoutY="50.4" prefWidth="700.0" spacing="10.0" style="-fx-padding: 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
       <children>
-        <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
-          <Label fx:id="title" minWidth="380.0" text="Sorting Algorithm Visualizer"/>
-          <Button fx:id="aboutBtn" minWidth="60.0" mnemonicParsing="false" onAction="#handleAbout" prefHeight="39.0" prefWidth="60.0" text="About"/>
-        </HBox>
+        <Label fx:id="title" minWidth="380.0" text="Sorting Algorithm Visualizer" />
         <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
           <children>
-            <Button fx:id="rndBtn" minWidth="140.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="39.0" prefWidth="150.0" text="Random Array"/>
-            <Button fx:id="customArrayBtn" minWidth="140.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="39.0" prefWidth="150.0" text="Custom Array"/>
-            <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false"/>
+            <Button fx:id="rndBtn" minWidth="140.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="39.0" prefWidth="150.0" text="Random Array" />
+            <Button fx:id="customArrayBtn" minWidth="140.0" mnemonicParsing="false" onAction="#handleCustomArray" prefHeight="39.0" prefWidth="150.0" text="Custom Array" />
+            <TextField fx:id="customArrayField" prefHeight="36.0" prefWidth="284.0" promptText="Enter comma-separated values" visible="false" />
           </children>
         </HBox>
         <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
           <children>
-            <Button fx:id="viewDetailsBtn" minWidth="140.0" mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="39.0" prefWidth="150.0" text="View Details"/>
-            <Button fx:id="sortBtn" minWidth="140.0" mnemonicParsing="false" onAction="#sort" prefHeight="39.0" prefWidth="150.0" text="Sort"/>
+            <Button fx:id="viewDetailsBtn" minWidth="140.0" mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="39.0" prefWidth="150.0" text="View Details" />
+            <Button fx:id="sortBtn" minWidth="140.0" mnemonicParsing="false" onAction="#sort" prefHeight="39.0" prefWidth="150.0" text="Sort" />
           </children>
         </HBox>
         <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="455.0" spacing="10.0">
           <children>
             <ChoiceBox fx:id="Algorithm" minWidth="120.0" prefHeight="34.0" prefWidth="150.0">
               <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
               </cursor>
             </ChoiceBox>
-            <Label styleClass="speedLabel" text="Animation Speed:"/>
-            <Label styleClass="speedLabel" text="Slow"/>
-            <Slider fx:id="speedSlider" blockIncrement="100.0" max="1000.0" min="100.0" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" value="900.0"/>
-            <Label styleClass="speedLabel" text="Fast"/>
+            <Label styleClass="speedLabel" text="Animation Speed:" />
+            <Label styleClass="speedLabel" text="Slow" />
+            <Slider fx:id="speedSlider" blockIncrement="100.0" max="1000.0" min="100.0" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" value="900.0" />
+            <Label styleClass="speedLabel" text="Fast" />
           </children>
         </HBox>
         <HBox prefHeight="36.0" prefWidth="200.0">
           <children>
-            <Label fx:id="complexityLabel" styleClass="speedLabel" text=""/>
+            <Label fx:id="complexityLabel" styleClass="speedLabel" text="" />
             <HBox fx:id="performanceBox" spacing="2.0">
               <children>
-                <Label fx:id="performanceLabel2" styleClass="performanceLabel" text=""/>
-                <Label fx:id="comparisonsLabel" styleClass="performanceNumber" text="0"/>
-                <Label fx:id="performanceLabel3" styleClass="performanceLabel" text=", Swaps: "/>
-                <Label fx:id="swapsLabel" styleClass="performanceNumber" text="0"/>
+                <Label fx:id="performanceLabel2" styleClass="performanceLabel" text="" />
+                <Label fx:id="comparisonsLabel" styleClass="performanceNumber" text="0" />
+                <Label fx:id="performanceLabel3" styleClass="performanceLabel" text=", Swaps: " />
+                <Label fx:id="swapsLabel" styleClass="performanceNumber" text="0" />
               </children>
             </HBox>
           </children>
         </HBox>
       </children>
     </VBox>
-    <AnchorPane fx:id="visualizationPane" layoutX="53.599999999999994" layoutY="252.8" minWidth="500.0" pickOnBounds="false" prefHeight="342.0" prefWidth="701.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="248.0"/>
+    <AnchorPane fx:id="visualizationPane" layoutX="53.599999999999994" layoutY="252.8" minWidth="500.0" pickOnBounds="false" prefHeight="342.0" prefWidth="701.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="248.0" />
     <HBox fx:id="legendBox" alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 10; -fx-background-color: #f4f4f4;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
       </HBox>
+    <Button fx:id="aboutBtn" alignment="CENTER" minWidth="60.0" mnemonicParsing="false" onAction="#handleAbout" prefHeight="39.0" prefWidth="60.0" text="About" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
   </children>
 </AnchorPane>
