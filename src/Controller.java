@@ -46,6 +46,9 @@ public class Controller {
     @FXML
     private Button viewDetailsBtn;
 
+    @FXML
+    private Button aboutBtn;
+
     
     private int timelineDuration = 200;
     
@@ -69,6 +72,40 @@ public class Controller {
         alert.getDialogPane().setContent(textArea);
         alert.getDialogPane().setPrefWidth(850);
         alert.getDialogPane().setPrefHeight(700);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void handleAbout(ActionEvent event) {
+        Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("About Sorting Algorithm Visualizer");
+        alert.setHeaderText("About");
+        String aboutText = "Sorting Algorithm Visualizer\n\n" +
+                          "Version: 1.0\n" +
+                          "Authors: Md. Farhan Quadery, Saddam Hossain Molla, Rasel Ahmed\n" +
+                          "Department of Computer Science and Engineering\n" +
+                          "Hajee Mohammad Danesh Science and Technology University\n" +
+                          "Batch of 2022\n\n" +
+                          "This application is designed to help students and educators understand " +
+                          "how different sorting algorithms work through visual demonstrations.\n\n" +
+                          "Features:\n" +
+                          "- Visualizes Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort\n" +
+                          "- Adjustable animation speed\n" +
+                          "- Performance metrics tracking\n" +
+                          "- Detailed algorithm descriptions\n\n" +
+                          "For educational purposes only.";
+        
+        TextArea textArea = new TextArea(aboutText);
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
+        textArea.setPrefWidth(500);
+        textArea.setPrefHeight(400);
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        textArea.setStyle("-fx-font-size: 14px;");
+        alert.getDialogPane().setContent(textArea);
+        alert.getDialogPane().setPrefWidth(550);
+        alert.getDialogPane().setPrefHeight(500);
         alert.showAndWait();
     }
 

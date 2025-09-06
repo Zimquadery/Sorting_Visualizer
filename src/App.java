@@ -26,3 +26,11 @@ public class App extends Application {
         primaryStage.show();
     }
 }
+
+
+/* Sorting Algorithm Visualiser
+ * Authors: Md. Farhan Quadery, Saddam Hossain Molla, Rasel Ahmed
+ * Hajee Mohammad Danesh Science and Technology University
+ * Department of Computer Science and Engineering
+ * Batch of 2022
+ */

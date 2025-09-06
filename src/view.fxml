@@ -14,7 +14,10 @@
   <children>
     <VBox layoutX="80.0" layoutY="50.4" prefWidth="700.0" spacing="10.0" style="-fx-padding: 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Label fx:id="title" minWidth="380.0" text="Sorting Algorithm Visualizer"/>
+        <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
+          <Label fx:id="title" minWidth="380.0" text="Sorting Algorithm Visualizer"/>
+          <Button fx:id="aboutBtn" minWidth="60.0" mnemonicParsing="false" onAction="#handleAbout" prefHeight="39.0" prefWidth="60.0" text="About"/>
+        </HBox>
         <HBox prefHeight="36.0" prefWidth="455.0" spacing="10.0">
           <children>
             <Button fx:id="rndBtn" minWidth="140.0" mnemonicParsing="false" onAction="#randomizer" prefHeight="39.0" prefWidth="150.0" text="Random Array"/>
@@ -46,7 +49,7 @@
             <Label fx:id="complexityLabel" styleClass="speedLabel" text=""/>
             <HBox fx:id="performanceBox" spacing="2.0">
               <children>
-                <Label fx:id="performanceLabel2" styleClass="performanceLabel" text="   Comparisons: "/>
+                <Label fx:id="performanceLabel2" styleClass="performanceLabel" text=""/>
                 <Label fx:id="comparisonsLabel" styleClass="performanceNumber" text="0"/>
                 <Label fx:id="performanceLabel3" styleClass="performanceLabel" text=", Swaps: "/>
                 <Label fx:id="swapsLabel" styleClass="performanceNumber" text="0"/>

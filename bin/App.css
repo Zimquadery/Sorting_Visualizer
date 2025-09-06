@@ -12,7 +12,8 @@
 #rndBtn,
 #customArrayBtn,
 #sortBtn,
-#viewDetailsBtn {
+#viewDetailsBtn,
+#aboutBtn {
     -fx-background-color: #0277bd;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
@@ -27,10 +28,17 @@
     -fx-font-weight: bold;
 }
 
+#aboutBtn {
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-padding: 5px 5px;
+}
+
 #rndBtn:hover,
 #customArrayBtn:hover,
 #sortBtn:hover,
-#viewDetailsBtn:hover {
+#viewDetailsBtn:hover,
+#aboutBtn:hover {
     -fx-background-color: #00838f;
     -fx-text-fill: #fff;
     -fx-effect: dropshadow(gaussian, #27548A, 8, 0.15, 0, 2);

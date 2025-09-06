@@ -9,6 +9,7 @@ Sorting_Vizualizer is a JavaFX desktop application for visualizing and interacti
 - Adjustable animation speed
 - View detailed explanations and pseudocode for each algorithm
 - Modern, responsive UI with clear color legends
+- Simple "About" section with project information
 
 ## Getting Started
 1. **Clone the repository**
